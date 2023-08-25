@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+{% block contents %}
+<div class="employees text-white">
+    {% if employees %}
+    <form method="POST" type="submit" action="{% url 'delete_emp' %}">
+        {% csrf_token %}
+        <div class="flex justify-between">
+            <h1 class="tracking-wider text-2xl font-medium mb-5">Manage Employees</h1>
+            <div class="flex gap-4 items-center">
+                <a class="flex items-center py-1 px-4 text-[#82D800] rounded-md border border-[#82D800]"
+                    href="{% url 'add_emp' %}">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>Add
+                </a>
+                <button class="flex items-center py-1 px-4 text-red-600 rounded-md border border-red-600"
+                    href="{% url 'add_emp' %}" type="submit">
+                    <span class="material-symbols-outlined">
+                        person_remove
+                    </span>Remove
+                </button>
+            </div>
+        </div>
+        <table class="w-full border-collapse font-normal mt-4 text-[14px]">
+            <tr class="border border-x-black">
+                <th><input type="checkbox" name="all" class="selectall rounded" /></th>
+                <th>#</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Position</th>
+                <th>Salary</th>
+            </tr>
+            {% for employee in employees %}
+            <tr>
+                <td><input type="checkbox" name="{{employee.emp_id}}" class="select rounded" /></td>
+                <td>{{employee.emp_id}}</td>
+                <td>{{employee.name}}</td>
+                <td>{{employee.gender}}</td>
+                <td>{{employee.ph_no}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.position}}</td>
+                <td>{{employee.salary}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    {% else %}
+    <h2>No employees found</h2>
+    {% endif %}
+</div>
+{% endblock contents %}

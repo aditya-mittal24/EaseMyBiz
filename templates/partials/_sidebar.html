@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<div class="sidebar bg-[#151516] h-[95%] rounded-3xl fixed flex flex-col w-[18%] left-3 top-4 font-light">
+    <h1 class="text-white text-[20px] pl-[20px] pt-[15px] font-semibold">Administration</h1>
+    <a class="text-white text-[16px] flex items-center gap-3 py-[15px] pl-[20px]" href="{% url 'dashboard' %}"><span
+            class="material-symbols-outlined">
+            dashboard
+        </span>Dashboard</a>
+    <a class="text-white text-[16px] flex items-center gap-3 py-[15px] pl-[20px]" href="{% url 'manage_employees' %}"><span
+            class="material-symbols-outlined">
+            group
+        </span>Manage Employees</a>
+    <h1 class="text-white text-[20px] pl-[20px] pt-[15px] font-semibold">Managements</h1>
+    <a class="text-white text-[16px] flex items-center gap-3 py-[15px] pl-[20px]" href="{% url 'task_manager' %}"><span
+            class="material-symbols-outlined">
+            add_task
+        </span>Task Manager</a>
+    <a class="text-white text-[16px] flex items-center gap-3 py-[15px] pl-[20px]" href=""><span
+            class="material-symbols-outlined">
+            meeting_room
+        </span>Appointments</a>
+    <h1 class="text-white text-[20px] pl-[20px] pt-[15px] font-semibold">Accounting</h1>
+    <a class="text-white text-[16px] flex items-center gap-3 py-[15px] pl-[20px]" href="{% url 'expense_list' %}"><span
+            class="material-symbols-outlined">
+            account_balance_wallet
+        </span>Expense Tracker</a>
+    <a class="text-black mt-[10%] bg-white mx-auto text-center w-[90%] rounded-3xl py-[12px]" href="">Sign Out</a>
+</div>
