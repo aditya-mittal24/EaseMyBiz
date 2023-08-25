@@ -33,7 +33,54 @@
         </div>
     </div>
 </div>
-<div class="insights text-white">
+<div class="insights text-white mt-8">
     <h1 class="tracking-wider text-2xl font-medium mb-5">Today's Insights</h1>
+    <div class="grid grid-cols-3 gap-5">
+        <div class="appointments rounded-xl px-4 py-6 bg-[#242424]">
+            <div class="flex justify-between">
+                <h2 class="text-lg">Appointments</h2>
+                <a href=""><span class="material-symbols-outlined cursor-pointer p-2 rounded-full bg-[#5e5d5d]">
+                    arrow_forward
+                </span></a>
+            </div>
+            <hr class="my-4">
+        </div>
+        <div class="tasks rounded-xl px-4 py-6 bg-[#242424]">
+            <div class="flex justify-between">
+                <h2 class="text-lg">Recent Tasks</h2>
+                <a href="{% url 'task_manager' %}"><span class="material-symbols-outlined cursor-pointer p-2 rounded-full bg-[#5e5d5d]">
+                    arrow_forward
+                </span></a>
+            </div>
+            <hr class="my-4">
+            <div class="flex flex-col">
+                {% for task in tasks %}
+                <div class="flex justify-between border-b border-b-gray-500 pb-5">
+                    <h2>{{task.title}} </h2>
+                    <h2>{{task.due_datetime| date:"j/m/Y"}}</h2>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="expenses rounded-xl px-4 py-6 bg-[#242424]">
+            <div class="flex justify-between">
+                <h2 class="text-lg">Last Expenses</h2>
+                <a href="{% url 'expense_list' %}">
+                    <span class="material-symbols-outlined cursor-pointer p-2 rounded-full bg-[#5e5d5d]">
+                        arrow_forward
+                    </span>
+                </a>
+            </div>
+            <hr class="my-4">
+            <div class="flex flex-col">
+                {% for expense in expenses %}
+                <div class="flex justify-between border-b border-b-gray-500 pb-5">
+                    <h2>{{expense.description}}</h2>
+                    <h2>{{expense.amount}}</h2>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock contents %}

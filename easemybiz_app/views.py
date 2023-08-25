@@ -4,7 +4,9 @@ from .models import Employee, Task, Expense
 # Create your views here.
 
 def home(request):
-    return render(request, "dashboard.html")
+    inprogress = Task.objects.filter(completed=False)
+    expenses = Expense.objects.all()
+    return render(request, "dashboard.html", context={"tasks": inprogress, "expenses": expenses})
 
 def manage_employees(request):
     employees = Employee.objects.all()
@@ -115,3 +117,7 @@ def delete_expense(request, expense_id):
         return redirect('expense_list')
     
     return render(request, 'delete_expense.html', {'expense': expense})
+
+
+def appointments(request):
+    return render(request, "appointments.html")
