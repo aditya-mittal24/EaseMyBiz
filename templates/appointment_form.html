@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block contents %}
+<div class="container mx-auto p-4 text-white">
+    <h1 class="text-3xl font-semibold mb-4">{{ form_title }}</h1>
+    <form method="post" class="bg-[#242424] p-4 shadow-md rounded-md">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block font-semibold" for="id_customer_name">Customer Name</label>
+            <input class="border rounded-md px-3 py-2 w-full text-black" type="text" name="customer_name" id="id_customer_name" value="{{ form.customer_name.value }}">
+        </div>
+        <div class="mb-4">
+            <label class="block font-semibold" for="id_service_name">Service Name</label>
+            <input class="border rounded-md px-3 py-2 w-full text-black" type="text" name="service_name" id="id_service_name" value="{{ form.service_name.value }}">
+        </div>
+        <div class="mb-4">
+            <label class="block font-semibold" for="id_appointment_datetime">Appointment Datetime</label>
+            <input class="border rounded-md px-3 py-2 w-full text-black" type="datetime-local" name="appointment_datetime" id="id_appointment_datetime" value="{{ form.appointment_datetime.value|date:'Y-m-d\TH:i' }}">
+        </div>
+        <div class="mb-4">
+            <label class="block font-semibold" for="id_notes">Notes</label>
+            <textarea class="border rounded-md px-3 py-2 w-full text-black" name="notes" id="id_notes" rows="4">{{ form.notes.value }}</textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Save</button>
+        <a href="{% url 'appointment_list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded ml-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

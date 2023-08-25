@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block contents %}
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-semibold mb-4">Confirm Deletion</h1>
+    <div class="bg-white p-4 shadow-md rounded-md">
+        <p>Are you sure you want to delete the appointment for {{ appointment.customer_name }} on {{ appointment.appointment_datetime }}?</p>
+    </div>
+    <div class="mt-4">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
+            <a href="{% url 'appointment_detail' appointment.id %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded ml-2">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

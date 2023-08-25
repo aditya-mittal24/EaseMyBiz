@@ -14,5 +14,9 @@ urlpatterns = [
     path('expenses/add_expense/', views.add_expense, name='add_expense'),
     path('expenses/edit/<int:expense_id>/', views.edit_expense, name='edit_expense'),
     path('expenses/delete/<int:expense_id>/', views.delete_expense, name='delete_expense'),
-    path('appointments', views.appointments, name="appointments")
+    path('appointments/', views.appointment_list, name="appointment_list"),
+    path('create/', views.create_appointment, name='appointment_create'),
+    path('<int:appointment_id>/', views.appointment_detail, name='appointment_detail'),
+    path('<int:appointment_id>/update/', views.update_appointment, name='appointment_update'),
+    path('<int:appointment_id>/delete/', views.delete_appointment, name='appointment_delete'),
 ]

@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Employee, Task, Expense
+from .models import Employee, Task, Expense, Appointment
+from django.utils.timezone import make_aware
+from datetime import datetime
 
 # Create your views here.
 
 def home(request):
     inprogress = Task.objects.filter(completed=False)
     expenses = Expense.objects.all()
-    return render(request, "dashboard.html", context={"tasks": inprogress, "expenses": expenses})
+    appointments = Appointment.objects.all()
+    return render(request, "dashboard.html", context={"tasks": inprogress, "expenses": expenses, "appointments": appointments})
 
 def manage_employees(request):
     employees = Employee.objects.all()
@@ -119,5 +122,44 @@ def delete_expense(request, expense_id):
     return render(request, 'delete_expense.html', {'expense': expense})
 
 
-def appointments(request):
-    return render(request, "appointments.html")
+def appointment_list(request):
+    appointments = Appointment.objects.all()
+    return render(request, 'appointments.html', {'appointments': appointments})
+
+def appointment_detail(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    return render(request, 'appointment_detail.html', {'appointment': appointment})
+
+def create_appointment(request):
+    if request.method == 'POST':
+        customer_name = request.POST['customer_name']
+        service_name = request.POST['service_name']
+        appointment_datetime = make_aware(datetime.strptime(request.POST['appointment_datetime'], '%Y-%m-%dT%H:%M'))
+        notes = request.POST.get('notes', '')
+        
+        Appointment.objects.create(
+            customer_name=customer_name,
+            service_name=service_name,
+            appointment_datetime=appointment_datetime,
+            notes=notes
+        )
+        return redirect('appointment_list')
+    return render(request, 'appointment_form.html')
+
+def update_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    if request.method == 'POST':
+        appointment.customer_name = request.POST['customer_name']
+        appointment.service_name = request.POST['service_name']
+        appointment.appointment_datetime = make_aware(datetime.strptime(request.POST['appointment_datetime'], '%Y-%m-%dT%H:%M'))
+        appointment.notes = request.POST.get('notes', '')
+        appointment.save()
+        return redirect('appointment_detail', appointment_id=appointment_id)
+    return render(request, 'appointment_form.html', {'appointment': appointment})
+
+def delete_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    if request.method == 'POST':
+        appointment.delete()
+        return redirect('appointment_list')
+    return render(request, 'appointment_confirm_delete.html', {'appointment': appointment})

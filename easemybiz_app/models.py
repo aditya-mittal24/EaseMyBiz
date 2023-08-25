@@ -36,3 +36,13 @@ class Expense(models.Model):
     
     def __str__(self):
         return self.description
+
+
+class Appointment(models.Model):
+    customer_name = models.CharField(max_length=100)
+    service_name = models.CharField(max_length=100)
+    appointment_datetime = models.DateTimeField()
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Appointment for {self.customer_name} on {self.appointment_datetime}"
